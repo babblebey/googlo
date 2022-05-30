@@ -1,9 +1,20 @@
 import { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import ogs from 'open-graph-scraper';
+import ky from 'ky';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  ky.post('https://reactjs.org', {json: {foo: true}})
+    .then(data => console.log(data.json()))
+  
+  // ogs(
+  //   {html: data}
+  // ).then(data => {
+  //   console.log(data);
+  // })
 
   return (
     <div className="App">
