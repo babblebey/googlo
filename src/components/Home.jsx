@@ -1,7 +1,22 @@
 import logo from '../logo.svg';
 import { MdSearch, MdSettings, MdMic, MdOutlineClose } from "react-icons/md";
+import { useGetSearchQuery, useGetImageQuery, useGetNewsQuery, useGetVideoQuery } from "../services/GoogleSearch";
+import { useGetKnowledgePanelQuery } from "../services/GoogleKnowledgePanel";
 
 const Home = () => {
+    // const { data, error, isLoading } = useGetSearchQuery();
+    // const { data, error, isLoading } = useGetImageQuery();
+    // const { data, error, isLoading } = useGetNewsQuery();
+    // const { data: video, error, isLoading } = useGetVideoQuery();
+    const { data, error, isLoading } = useGetKnowledgePanelQuery();
+
+    const { knowledge_panel } = data;
+
+    if (isLoading) return 'Loading';
+    if (error) return error;
+    
+    console.log(knowledge_panel);
+
     return ( 
         <div className="flex flex-col h-screen space-y-6">
             <header className="p-2 text-right">
