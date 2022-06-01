@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const headers = {
     'X-RapidAPI-Host': 'google-search3.p.rapidapi.com',
-    'X-RapidAPI-Key': 'f93c4349f2mshc013ab6964bca9ap1b04d2jsna3010d9dca5a'
+    'X-RapidAPI-Key': import.meta.env.VITE_GOOGLE_SEARCH_APIKEY
 }
 
 const baseUrl = 'https://google-search3.p.rapidapi.com';
