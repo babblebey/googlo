@@ -2,6 +2,9 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
+      colors: {
+        'gblue': '#1A73E8'
+      },
       boxShadow: {
         'form': '0 1px 6px rgb(32 33 36 / 30%)',
         'form-light': '0 1px 6px rgb(32 33 36 / 20%)',
