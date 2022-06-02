@@ -5,3 +5,7 @@
 body {
     font-family: Arial, sans-serif;
 }
+
+.container {
+    @apply max-w-[1300px] w-full
+}

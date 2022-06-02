@@ -6,8 +6,8 @@ module.exports = {
         'gblue': '#1A73E8'
       },
       boxShadow: {
-        'form': '0 1px 6px rgb(32 33 36 / 30%)',
-        'form-light': '0 1px 6px rgb(32 33 36 / 20%)',
+        'form': '0 1px 8px rgb(32 33 36 / 30%)',
+        'form-light': '0 1px 4px rgb(32 33 36 / 20%)',
       },
       keyframes: {
         "slide-in": {

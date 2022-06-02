@@ -39,21 +39,21 @@ const Header = () => {
             </div>
 
             <div className="border-b">
-                <div className="ml-40 pt-2 flex text-sm text-gray-600">
+                <div className="ml-5 lg:ml-40 pt-2 flex text-sm text-gray-600">
                     <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-gblue text-gblue">
-                        <MdSearch className="text-lg" />
+                        <MdSearch className="md:text-lg" />
                         <p>All</p>
                     </div>
                     <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-transparent">
-                        <MdOutlineSlideshow className="text-lg" />
+                        <MdOutlineSlideshow className="md:text-lg" />
                         <p>Videos</p>
                     </div>
                     <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-transparent">
-                        <MdOutlineImage className="text-lg" />
+                        <MdOutlineImage className="md:text-lg" />
                         <p>Images</p>
                     </div>
                     <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-transparent">
-                        <BiNews className="text-lg" />
+                        <BiNews className="md:text-lg" />
                         <p>News</p>
                     </div>
                 </div>
