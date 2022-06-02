@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import { Home } from './components'
+import { Home, Search } from './components'
 
 const App = () => {
   return ( 
@@ -7,6 +7,9 @@ const App = () => {
       <Switch>
         <Route exact path={'/'}>
           <Home />
+        </Route>
+        <Route path={'/search'}>
+          <Search />
         </Route>
       </Switch>
     </>
