@@ -14,10 +14,10 @@ export const googleSearchApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
     endpoints: builder => ({
         getSearch: builder.query({
-            query: () => createRequest(`/api/v1/search/q=elon+musk`)
+            query: () => createRequest(`/api/v1/search/q=ousmane+dembele&num=10&hl=en`)
         }),
         getImage: builder.query({
-            query: () => createRequest(`/api/v1/image/q=tesla`)
+            query: () => createRequest(`/api/v1/image/q=nike&num=100&hl=en`)
         }),
         getNews: builder.query({
             query: () => createRequest(`/api/v1/news/q=tesla`)

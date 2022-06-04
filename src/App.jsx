@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import { Home, Search } from './components'
+import { Home, Images, Search } from './components'
 
 const App = () => {
   return ( 
@@ -10,6 +10,9 @@ const App = () => {
         </Route>
         <Route path={'/search'}>
           <Search />
+        </Route>
+        <Route path={'/images'}>
+          <Images />
         </Route>
       </Switch>
     </>

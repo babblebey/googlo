@@ -5,7 +5,38 @@
 body {
     font-family: Arial, sans-serif;
 }
-
 .container {
     @apply max-w-[1300px] w-full
+}
+.header {
+    @apply py-3 md:pt-7 px-1 md:pr-5 md:px-0 bg-white;
+}
+.header-scrolled {
+    @apply py-1 px-1 md:pr-5 md:px-0 fixed w-full top-0 animate-slide-down bg-white shadow;
+}
+.glink {
+    @apply text-link hover:underline decoration-link;
+}
+.search-type-link {
+    @apply flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4;
+}
+@layer utilities {
+    @variants responsive {
+        .masonry {
+            column-gap: 1.5em;
+            column-count: 1;
+        }
+        .masonry-sm {
+            column-gap: 1.5em;
+            column-count: 2;
+        }
+        .masonry-md {
+            column-gap: 1.5em;
+            column-count: 3;
+        }
+        .break-inside {
+            break-inside: avoid;
+        }
+
+    }
 }

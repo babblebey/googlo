@@ -1,29 +1,47 @@
+import { useEffect, useState } from "react";
 import { MdMic, MdSearch, MdOutlineClose, MdOutlineSettings, MdOutlineSlideshow, MdOutlineImage } from "react-icons/md";
 import { BiNews } from "react-icons/bi";
 import logo from "../logo.svg";
+import icon from "../favicon.svg";
 
-const Header = () => {
+const Header = ({ page }) => {
+    const [scrolled, setScrolled] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        const handleScroll = () => window.scrollY >= 130 ? setScrolled(true) : setScrolled(false);
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll, true);
+    }, [scrolled]);
+
     return ( 
         <>
-            <div className="py-3 pt-7 pr-5">
-                <div className="ml-40 flex justify-between">
-                    <div className="flex relative items-center">
-                        <img src={logo} alt="Googlo" className="h-7 absolute -left-32" />
+            <img src={logo} alt="Googlo" className="h-7 mx-auto mt-3 block md:hidden" />
+            
+            <div className={scrolled ? 'header-scrolled' : 'header'}>
+                <div className="ml-3 md:ml-40 flex md:justify-between">
+                    <div className="flex flex-1 md:flex-0 relative items-center">
+                        <img src={logo} alt="Googlo" className="h-7 absolute -left-32 z-20 hidden md:block" />
 
-                        <div className="relative w-[692px] group">
+                        <div className="relative w-full max-w-[692px] group">
+                            <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-600 block md:hidden" />
                             <input 
-                                type="text" 
-                                className="rounded-full text-lg py-2 pl-6 pr-32 w-full shadow-form-light outline-0 focus-visible:shadow-form group-hover:border-transparent group-hover:shadow-form"
-                                onChange={() => {}}
+                                type="text"
+                                value={searchTerm} 
+                                className={`${scrolled ? 'py-1 border' : 'py-2 shadow-form-light'} rounded-full text-lg pl-12 md:pl-6 pr-32 w-full outline-0 focus-visible:shadow-form group-hover:border-transparent group-hover:shadow-form`}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
-                            <div className="absolute top-0 right-0 rounded-full mr-4 py-2 space-x-2 h-full flex my-auto text-2xl">
-                                <button className="border-r border-r-gray-300 pr-2">
-                                    <MdOutlineClose className="text-gray-600" />
-                                </button>
-                                <button className="pr-2">
+                            <div className={`${scrolled ? 'py-1 text-xl' : 'py-2 text-2xl'} absolute top-0 right-0 rounded-full mr-4 space-x-2 h-full flex my-auto`}>
+                                {searchTerm.length >= 1 &&  (
+                                    <button className="border-r border-r-gray-300 pr-2" onClick={() => setSearchTerm('')}>
+                                        <MdOutlineClose className="text-gray-600" />
+                                    </button>
+                                )}
+                                <button className="md:pr-2">
                                     <MdMic className="text-gblue" />
                                 </button>
-                                <button>
+                                <button className="hidden md:block">
                                     <MdSearch className="text-gblue" />
                                 </button>
                             </div>
@@ -40,21 +58,21 @@ const Header = () => {
 
             <div className="border-b">
                 <div className="ml-5 lg:ml-40 pt-2 flex text-sm text-gray-600">
-                    <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-gblue text-gblue">
+                    <div className={`search-type-link ${ !page ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                         <MdSearch className="md:text-lg" />
                         <p>All</p>
                     </div>
-                    <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-transparent">
-                        <MdOutlineSlideshow className="md:text-lg" />
-                        <p>Videos</p>
-                    </div>
-                    <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-transparent">
+                    <div className={`search-type-link ${ page == 'images' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                         <MdOutlineImage className="md:text-lg" />
                         <p>Images</p>
                     </div>
-                    <div className="flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4 border-transparent">
+                    <div className={`search-type-link ${ page == 'news' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                         <BiNews className="md:text-lg" />
                         <p>News</p>
+                    </div>
+                    <div className={`search-type-link ${ page == 'videos' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
+                        <MdOutlineSlideshow className="md:text-lg" />
+                        <p>Videos</p>
                     </div>
                 </div>
             </div>
