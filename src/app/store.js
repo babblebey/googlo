@@ -5,6 +5,6 @@ import { googleKnowledgePanelApi } from "../services/GoogleKnowledgePanel";
 export default configureStore({
     reducer: {
         [googleSearchApi.reducerPath]: googleSearchApi.reducer,
-        [googleKnowledgePanelApi.reducerPath]: googleKnowledgePanelApi.reducer
+        [googleKnowledgePanelApi.reducerPath]: googleKnowledgePanelApi.reducer,
     }
 })

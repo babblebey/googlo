@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import { Home, Images, Search } from './components'
+import { Home, Images, News, Search, Videos } from './components'
 
 const App = () => {
   return ( 
@@ -13,6 +13,12 @@ const App = () => {
         </Route>
         <Route path={'/images'}>
           <Images />
+        </Route>
+        <Route path={'/videos'}>
+          <Videos />
+        </Route>
+        <Route path={'/news'}>
+          <News />
         </Route>
       </Switch>
     </>

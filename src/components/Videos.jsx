@@ -1,9 +1,9 @@
-const Video = () => {
+const Videos = () => {
     return ( 
         <div>
-            Video
+            Videos
         </div>
      );
 }
  
-export default Video;
+export default Videos;

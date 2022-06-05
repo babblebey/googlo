@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MdMic, MdSearch, MdOutlineClose, MdOutlineSettings, MdOutlineSlideshow, MdOutlineImage } from "react-icons/md";
 import { BiNews } from "react-icons/bi";
 import logo from "../logo.svg";
-import icon from "../favicon.svg";
+import { Link } from "react-router-dom";
 
 const Header = ({ page }) => {
     const [scrolled, setScrolled] = useState(false);
@@ -22,7 +22,9 @@ const Header = ({ page }) => {
             <div className={scrolled ? 'header-scrolled' : 'header'}>
                 <div className="ml-3 md:ml-40 flex md:justify-between">
                     <div className="flex flex-1 md:flex-0 relative items-center">
-                        <img src={logo} alt="Googlo" className="h-7 absolute -left-32 z-20 hidden md:block" />
+                        <Link to={'/'} className="absolute -left-32 z-20 hidden md:block">
+                            <img src={logo} alt="Googlo" className="h-7" />
+                        </Link>
 
                         <div className="relative w-full max-w-[692px] group">
                             <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-600 block md:hidden" />
@@ -58,22 +60,30 @@ const Header = ({ page }) => {
 
             <div className="border-b">
                 <div className="ml-5 lg:ml-40 pt-2 flex text-sm text-gray-600">
-                    <div className={`search-type-link ${ !page ? 'border-gblue text-gblue' : 'border-transparent' }`}>
-                        <MdSearch className="md:text-lg" />
-                        <p>All</p>
-                    </div>
-                    <div className={`search-type-link ${ page == 'images' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
-                        <MdOutlineImage className="md:text-lg" />
-                        <p>Images</p>
-                    </div>
-                    <div className={`search-type-link ${ page == 'news' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
-                        <BiNews className="md:text-lg" />
-                        <p>News</p>
-                    </div>
-                    <div className={`search-type-link ${ page == 'videos' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
-                        <MdOutlineSlideshow className="md:text-lg" />
-                        <p>Videos</p>
-                    </div>
+                    <Link to={`/search`}>
+                        <div className={`search-type-link ${ !page ? 'border-gblue text-gblue' : 'border-transparent' }`}>
+                            <MdSearch className="md:text-lg" />
+                            <p>All</p>
+                        </div>
+                    </Link>
+                    <Link to={`/images`}>
+                        <div className={`search-type-link ${ page == 'images' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
+                            <MdOutlineImage className="md:text-lg" />
+                            <p>Images</p>
+                        </div>
+                    </Link>
+                    <Link to={`/news`}>
+                        <div className={`search-type-link ${ page == 'news' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
+                            <BiNews className="md:text-lg" />
+                            <p>News</p>
+                        </div>
+                    </Link>
+                    <Link to={`videos`}>
+                        <div className={`search-type-link ${ page == 'videos' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
+                            <MdOutlineSlideshow className="md:text-lg" />
+                            <p>Videos</p>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </>

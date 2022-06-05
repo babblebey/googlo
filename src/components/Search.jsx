@@ -17,11 +17,11 @@ const Search = () => {
             <Header />
 
             <div className="container py-5">
-                <div className="flex flex-col-reverse md:flex-row mx-5 lg:ml-40 lg:mr-2 justify-between">
+                <div className="flex flex-col-reverse md:flex-row mx-5 lg:ml-40 lg:mr-10 justify-between">
                     <div className="md:basis-2/3 md:max-w-[692px] space-y-6">
                         { results?.map((r, i) => (
                             <div className="md:px-3" key={i}>
-                                <a href={ r?.link }>
+                                <a href={ r?.link } target="_blank">
                                     <cite className="text-sm not-italic text-gray-900">
                                         { r?.cite?.domain }
                                     </cite>

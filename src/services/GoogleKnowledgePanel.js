@@ -14,7 +14,7 @@ export const googleKnowledgePanelApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
     endpoints: builder => ({
         getKnowledgePanel: builder.query({
-            query: () => createRequest(`/?query=Ousmane Dembele&max=1`)
+            query: () => createRequest(`/?query=nike&max=1`)
         })
     })
 })
