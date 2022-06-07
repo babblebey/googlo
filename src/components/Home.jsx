@@ -1,15 +1,20 @@
 import { useState } from "react";
 import logo from '../logo.svg';
 import { MdSearch, MdSettings, MdMic, MdOutlineClose } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { openSettings } from "../features/SettingsToggle";
 
 const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const dispatch = useDispatch();
 
     return ( 
         <div className="flex flex-col h-screen space-y-6">
             {/* Header */}
             <header className="p-2 text-right">
-                <button className="rounded-full hover:bg-gray-100 p-2">
+                <button className="rounded-full hover:bg-gray-100 p-2"
+                    onClick={() => dispatch(openSettings())}
+                >
                     <MdSettings className="text-gray-800 text-xl"/>
                 </button>
             </header>

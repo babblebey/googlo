@@ -21,6 +21,16 @@ module.exports = {
             transform: "translateX(0%)",
           },
         },
+        "slide-out": {
+          "0%": {
+            "-webkit-transform": "translateX(-120%)",
+            transform: "translateX(-120%)",
+          },
+          "100%": {
+            "-webkit-transform": "translateX(0%)",
+            transform: "translateX(0%)",
+          },
+        },
         "slide-down": {
           "0%": {
             "-webkit-transform": "translateY(-120%)",
@@ -34,6 +44,7 @@ module.exports = {
       },
       animation: {
         "slide-in": "slide-in .2s ease-out",
+        "slide-out": "slide-in .2s ease-out",
         "slide-down": "slide-down .2s ease-out",
       },
     },

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { MdMic, MdSearch, MdOutlineClose, MdOutlineSettings, MdOutlineSlideshow, MdOutlineImage } from "react-icons/md";
-import { BiNews } from "react-icons/bi";
-import logo from "../logo.svg";
 import { Link } from "react-router-dom";
+import { BiNews } from "react-icons/bi";
+import { MdMic, MdSearch, MdOutlineClose, MdOutlineSettings, MdOutlineSlideshow, MdOutlineImage } from "react-icons/md";
+import logo from "../logo.svg";
+import { useDispatch } from "react-redux";
+import { openSettings } from "../features/SettingsToggle";
 
 const Header = ({ page }) => {
+    const dispatch = useDispatch();
     const [scrolled, setScrolled] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -22,7 +25,7 @@ const Header = ({ page }) => {
             <div className={scrolled ? 'header-scrolled' : 'header'}>
                 <div className="ml-3 md:ml-40 flex md:justify-between">
                     <div className="flex flex-1 md:flex-0 relative items-center">
-                        <Link to={'/'} className="absolute -left-32 z-20 hidden md:block">
+                        <Link to={'/'} className="absolute -left-32 z-10 hidden md:block">
                             <img src={logo} alt="Googlo" className="h-7" />
                         </Link>
 
@@ -51,7 +54,9 @@ const Header = ({ page }) => {
                     </div>
 
                     <div className="flex items-center">
-                        <button className="rounded-full hover:bg-gray-100 p-2">
+                        <button className="rounded-full hover:bg-gray-100 p-2"
+                            onClick={() => dispatch(openSettings())}    
+                        >
                             <MdOutlineSettings className="text-gray-500 text-2xl"/>
                         </button>
                     </div>
@@ -61,7 +66,7 @@ const Header = ({ page }) => {
             <div className="border-b">
                 <div className="ml-5 lg:ml-40 pt-2 flex text-sm text-gray-600">
                     <Link to={`/search`}>
-                        <div className={`search-type-link ${ !page ? 'border-gblue text-gblue' : 'border-transparent' }`}>
+                        <div className={`search-type-link ${ page == 'search' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                             <MdSearch className="md:text-lg" />
                             <p>All</p>
                         </div>

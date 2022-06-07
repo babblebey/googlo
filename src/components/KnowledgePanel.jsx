@@ -26,7 +26,7 @@ const KnowledgePanel = () => {
                     </div>
                 </div>
                 
-                <div className="w-full bg-gray-200 h-[1px] md:my-3" /> 
+                <div className="br md:my-3" /> 
 
                 <div className="px-3 my-3">
                     <p className="text-sm">

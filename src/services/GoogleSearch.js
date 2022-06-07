@@ -20,10 +20,10 @@ export const googleSearchApi = createApi({
             query: () => createRequest(`/api/v1/image/q=nike&num=100&hl=en`)
         }),
         getNews: builder.query({
-            query: () => createRequest(`/api/v1/news/q=nike&num=20`)
+            query: () => createRequest(`/api/v1/news/q=nike&num=15`)
         }),
         getVideo: builder.query({
-            query: () => createRequest(`/api/v1/video/q=nike&num=10&hl=en`)
+            query: () => createRequest(`/api/v1/video/q=nike&num=15&hl=en`)
         })
     })
 })

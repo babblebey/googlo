@@ -20,6 +20,18 @@ body {
 .glink {
     @apply text-link hover:underline decoration-link;
 }
+.gradio {
+    @apply appearance-none rounded-full h-4 w-4 border-2 border-gray-500 bg-white checked:border-[8px] checked:border-double checked:border-gblue focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer;
+}
+.setting-section-title {
+    @apply text-xl px-5 pb-3;
+}
+.setting-field {
+    @apply flex space-x-3 hover:bg-gray-100 px-5 py-2 cursor-pointer;
+}
 .search-type-link {
     @apply flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4;
+}
+.br {
+    @apply w-full bg-gray-200 h-[1px];
 }

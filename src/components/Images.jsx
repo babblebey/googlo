@@ -1,5 +1,3 @@
-import Header from "./Header";
-import Footer from "./Footer";
 import { useGetImageQuery } from "../services/GoogleSearch";
 
 const Images = () => {
@@ -12,9 +10,7 @@ const Images = () => {
     const { image_results } = images;
 
     return ( 
-        <div className="flex flex-1 h-screen flex-col">
-            <Header page='images' />
-
+        <div className="flex">
             <main className="p-4 flex flex-wrap">
                 { image_results?.map((r, i) => (
                     <div className="text-gray-700 h-fit w-fit mr-4 mb-4 cursor-pointer" key={i}>
@@ -36,8 +32,6 @@ const Images = () => {
                     Looks like you've reached the end
                 </p>
             </aside>
-
-            <Footer />
         </div>
      );
 }
