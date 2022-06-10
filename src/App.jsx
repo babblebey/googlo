@@ -1,17 +1,16 @@
 import { Switch, Route } from "react-router-dom";
-import { Header, Footer, Home, Images, News, Search, Videos, Settings } from './components';
+import { Header, Footer, Home, Images, News, Search, Videos, SettingsPanel } from './components';
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { deviceIsDarkScheme } from "./features/theme";
 
 const App = () => {
   const location = useLocation();
-  console.log(location, location.pathname);
-
-  // const settingsToggle = useSelector(state => state.settingsToggle.value);
-
+  const theme = useSelector(state => state.theme.value); //Selecting current theme
+  
   return ( 
-    <>
-      { location.pathname !== "/" && <Header page={ location.pathname.slice(1) } /> }
+    <div className={(theme === 'dark' || (theme === 'device' && deviceIsDarkScheme)) && 'dark'}>  {/** Adding the "dark" class to App root when user theme is Dark */}
+      { location.pathname !== "/" && <Header page={ location.pathname.slice(1) } /> /** Renders Header Component Everywhere except on the HOME path */ }
         <Switch>
           <Route exact path={'/'}>
             <Home />
@@ -29,10 +28,9 @@ const App = () => {
             <News />
           </Route>
         </Switch>
-        <Settings />
-      { location.pathname !== "/" && <Footer /> }
-      
-    </>
+        <SettingsPanel /> { /** Settings Panel Component Rendered for all Components */ }
+      { location.pathname !== "/" && <Footer />  /** Renders Footer Component Everywhere except on the HOME path */  }
+    </div>
    );
 }
  

@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiNews } from "react-icons/bi";
 import { MdMic, MdSearch, MdOutlineClose, MdOutlineSettings, MdOutlineSlideshow, MdOutlineImage } from "react-icons/md";
-import logo from "../logo.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openSettings } from "../features/SettingsToggle";
+import { deviceIsDarkScheme } from "../features/theme";
+import logo from "../logo.svg";
+import logoDark from "../logo-dark.svg";
 
 const Header = ({ page }) => {
     const dispatch = useDispatch();
     const [scrolled, setScrolled] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const theme = useSelector(state => state.theme.value); // Selecting the current user theme value
 
+    // Detects Window Scroll
     useEffect(() => {
         const handleScroll = () => window.scrollY >= 130 ? setScrolled(true) : setScrolled(false);
         window.addEventListener('scroll', handleScroll);
@@ -20,29 +24,59 @@ const Header = ({ page }) => {
 
     return ( 
         <>
-            <img src={logo} alt="Googlo" className="h-7 mx-auto mt-3 block md:hidden" />
+            {/* Displaying Logo based on user theme for MOBILE Device */}
+            <div className="block md:hidden dark:bg-gdark-300 pt-3">
+                {/* Renders this if theme is Light or theme is deviceDefault but Browser theme is Light */}
+                { (theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
+                    <img src={logo} alt="Googlo" className="h-7 mx-auto" />
+                ) }
+                {/* --- */}
+
+                {/* Renders this if theme is Dark theme is deviceDefault but Browser theme is Dark */}
+                { (theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && (
+                    <img src={logoDark} alt="Googlo" className="h-7 mx-auto" />
+                ) }
+                {/* --- */}
+            </div>
+            {/* ---- */}
             
-            <div className={scrolled ? 'header-scrolled' : 'header'}>
+            <div className={`${scrolled ? 'header-scrolled' : 'header'} dark:bg-gdark-300`}>
                 <div className="ml-3 md:ml-40 flex md:justify-between">
                     <div className="flex flex-1 md:flex-0 relative items-center">
+                        {/* Displaying Logo based on user theme for DESKTOP/LARGER Devices */}
                         <Link to={'/'} className="absolute -left-32 z-10 hidden md:block">
-                            <img src={logo} alt="Googlo" className="h-7" />
-                        </Link>
+                            {/* Renders this if theme is 'Light' or theme is deviceDefault but Browser theme is 'Light' */}
+                            { (theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
+                                <img src={logo} alt="Googlo" className="h-7" />
+                            ) }
+                            {/* --- */}
 
+                            {/* Renders this if theme is 'Dark' or theme is deviceDefault but Browser theme is 'Dark' */}
+                            { (theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && (
+                                <img src={logoDark} alt="Googlo" className="h-7" />
+                            ) }
+                            {/* --- */}
+                        </Link>
+                        {/* --- */}
+
+                        {/* Search Input Form Field */}
                         <div className="relative w-full max-w-[692px] group">
                             <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-600 block md:hidden" />
                             <input 
                                 type="text"
                                 value={searchTerm} 
-                                className={`${scrolled ? 'py-1 border' : 'py-2 shadow-form-light'} rounded-full text-lg pl-12 md:pl-6 pr-32 w-full outline-0 focus-visible:shadow-form group-hover:border-transparent group-hover:shadow-form`}
+                                className={`${scrolled ? 'search-input_scrolled' : 'search-input_not-scrolled'} search-input`}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                             <div className={`${scrolled ? 'py-1 text-xl' : 'py-2 text-2xl'} absolute top-0 right-0 rounded-full mr-4 space-x-2 h-full flex my-auto`}>
+                                {/* Clear input field button - Only render when searcf field has value typed in */}
                                 {searchTerm.length >= 1 &&  (
-                                    <button className="border-r border-r-gray-300 pr-2" onClick={() => setSearchTerm('')}>
+                                    <button className="border-r border-r-gray-300 dark:border-r-gdark-100 pr-2" onClick={() => setSearchTerm('')}>
                                         <MdOutlineClose className="text-gray-600" />
                                     </button>
                                 )}
+                                {/* --- */}
+                                
                                 <button className="md:pr-2">
                                     <MdMic className="text-gblue" />
                                 </button>
@@ -51,20 +85,24 @@ const Header = ({ page }) => {
                                 </button>
                             </div>
                         </div>
+                        {/* --- */}
                     </div>
 
                     <div className="flex items-center">
-                        <button className="rounded-full hover:bg-gray-100 p-2"
+                        {/* Setting Panel Toggle */}
+                        <button className="rounded-full hover:bg-gray-100 dark:hover:bg-gdark-200 p-2"
                             onClick={() => dispatch(openSettings())}    
                         >
-                            <MdOutlineSettings className="text-gray-500 text-2xl"/>
+                            <MdOutlineSettings className="text-gray-500 dark:text-gdark-50 text-2xl"/>
                         </button>
+                        {/* --- */}
                     </div>
                 </div>
             </div>
 
-            <div className="border-b">
-                <div className="ml-5 lg:ml-40 pt-2 flex text-sm text-gray-600">
+            <div className="border-b dark:bg-gdark-300 dark:border-b-gdark-100">
+                <div className="ml-5 lg:ml-40 pt-2 overflow-x-scroll flex text-sm text-gray-600 dark:text-gdark-50">
+                    {/* Search Types */}
                     <Link to={`/search`}>
                         <div className={`search-type-link ${ page == 'search' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                             <MdSearch className="md:text-lg" />
@@ -89,6 +127,7 @@ const Header = ({ page }) => {
                             <p>Videos</p>
                         </div>
                     </Link>
+                    {/* --- */}
                 </div>
             </div>
         </>

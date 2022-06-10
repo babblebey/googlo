@@ -1,9 +1,17 @@
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         'gblue': '#1A73E8',
+        gdark: {
+          50: '#bdc1c6',
+          100: '#3c4043',
+          200: '#303134',
+          300: '#202124',
+          400: '#171717'
+        },
         'link': '#1a0dab'
       },
       boxShadow: {

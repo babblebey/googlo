@@ -5,33 +5,51 @@
 body {
     font-family: Arial, sans-serif;
 }
+p {
+    word-break: break-word;
+}
 .font-roboto {
     font-family: Roboto-Medium, sans-serif;
 }
+.overflow-x-scroll::-webkit-scrollbar {
+    display: none
+}
 .container {
     @apply max-w-[1300px] w-full;
+}
+.dark {
+    @apply bg-gdark-300
 }
 .header {
     @apply py-3 md:pt-7 px-1 md:pr-5 md:px-0 bg-white;
 }
 .header-scrolled {
-    @apply py-1 px-1 md:pr-5 md:px-0 fixed w-full top-0 animate-slide-down bg-white shadow;
+    @apply py-1 px-1 md:pr-5 md:px-0 fixed w-full top-0 animate-slide-down bg-white shadow dark:shadow-lg;
+}
+.search-input {
+    @apply rounded-full text-lg pl-12 md:pl-6 pr-32 w-full outline-0 dark:text-gdark-50 focus-visible:shadow-form group-hover:border-transparent group-hover:shadow-form;
+}
+.search-input_scrolled {
+    @apply py-1 border dark:border-gdark-100 dark:bg-transparent dark:hover:bg-gdark-200 dark:focus-visible:bg-gdark-200 dark:focus-visible:border-transparent;
+}
+.search-input_not-scrolled {
+    @apply py-2 shadow-form-light dark:bg-gdark-200;
 }
 .glink {
-    @apply text-link hover:underline decoration-link;
+    @apply text-link hover:underline decoration-link dark:text-[#8ab4f8] dark:decoration-[#8ab4f8];
 }
 .gradio {
-    @apply appearance-none rounded-full h-4 w-4 border-2 border-gray-500 bg-white checked:border-[8px] checked:border-double checked:border-gblue focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer;
+    @apply appearance-none rounded-full h-4 w-4 border-2 border-gray-500 bg-white dark:bg-transparent checked:border-[8px] checked:border-double checked:border-gblue focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer;
 }
 .setting-section-title {
-    @apply text-xl px-5 pb-3;
+    @apply text-xl px-5 pb-3 dark:text-gray-50;
 }
 .setting-field {
-    @apply flex space-x-3 hover:bg-gray-100 px-5 py-2 cursor-pointer;
+    @apply flex space-x-3 hover:bg-gray-100 dark:hover:bg-gdark-200 px-5 py-2 cursor-pointer;
 }
 .search-type-link {
     @apply flex items-center space-x-1 py-2 mx-3 cursor-pointer border-b-4;
 }
 .br {
-    @apply w-full bg-gray-200 h-[1px];
+    @apply w-full h-[1px] border-b border-b-gray-200 dark:border-b-gdark-100;
 }
