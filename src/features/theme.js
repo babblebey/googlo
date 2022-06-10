@@ -18,7 +18,7 @@ const themeSlice = createSlice({
             if (action.payload === 'deviceDefault') {
                 localStorage.removeItem('theme')
             } else {
-                localStorage.addItem('theme', action.payload)
+                localStorage.setItem('theme', action.payload)
             }
         }
     }

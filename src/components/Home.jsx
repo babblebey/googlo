@@ -28,7 +28,7 @@ const Home = () => {
             {/* Main */}
             <main className="flex flex-col items-center space-y-2">
                 {/* Displaying Logo based on user theme */}
-                <div className="h-64 flex items-end">
+                <div className="h-[12em] flex items-end">
                     {/* Displays when theme is Light */}
                     {( theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
                         <img src={logo} alt="Googlo" className="w-72" />

@@ -9,7 +9,7 @@ const App = () => {
   const theme = useSelector(state => state.theme.value); //Selecting current theme
   
   return ( 
-    <div className={(theme === 'dark' || (theme === 'device' && deviceIsDarkScheme)) && 'dark'}>  {/** Adding the "dark" class to App root when user theme is Dark */}
+    <div className={(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && 'dark'}>  {/** Adding the "dark" class to App root when user theme is Dark */}
       { location.pathname !== "/" && <Header page={ location.pathname.slice(1) } /> /** Renders Header Component Everywhere except on the HOME path */ }
         <Switch>
           <Route exact path={'/'}>
