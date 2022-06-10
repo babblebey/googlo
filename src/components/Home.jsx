@@ -11,7 +11,7 @@ const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const dispatch = useDispatch();
     const country = useSelector(state => state.country.value); // Selecting the currently stated country value
-    const theme = useSelector(state => state.theme.value); // Selecting the currently state user theme value
+    const theme = useSelector(state => state.theme.value); // Selecting the currently state user theme value -> (light || dark || deviceDefault)
 
     return ( 
         <div className="flex flex-col h-screen space-y-6 dark:bg-gdark-300">

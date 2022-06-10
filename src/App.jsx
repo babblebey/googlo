@@ -6,10 +6,10 @@ import { deviceIsDarkScheme } from "./features/theme";
 
 const App = () => {
   const location = useLocation();
-  const theme = useSelector(state => state.theme.value); //Selecting current theme
+  const theme = useSelector(state => state.theme.value); // Selecting current theme state -> (light || dark || deviceDefault)
   
   return ( 
-    <div className={(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && 'dark'}>  {/** Adding the "dark" class to App root when user theme is Dark */}
+    <div className={(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && 'dark'}> {/** Adds "dark" class to App root if theme value is 'dark' or is 'deviceDefault' but Browser theme is Dark */}
       { location.pathname !== "/" && <Header page={ location.pathname.slice(1) } /> /** Renders Header Component Everywhere except on the HOME path */ }
         <Switch>
           <Route exact path={'/'}>

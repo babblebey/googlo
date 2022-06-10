@@ -12,7 +12,7 @@ const Header = ({ page }) => {
     const dispatch = useDispatch();
     const [scrolled, setScrolled] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const theme = useSelector(state => state.theme.value); // Selecting the current user theme value
+    const theme = useSelector(state => state.theme.value); // Selecting the current user theme value -> (light || dark || deviceDefault)
 
     // Detects Window Scroll
     useEffect(() => {
