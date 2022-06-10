@@ -14,7 +14,7 @@ const Home = () => {
     const theme = useSelector(state => state.theme.value); // Selecting the currently state user theme value -> (light || dark || deviceDefault)
 
     return ( 
-        <div className="flex flex-col h-screen space-y-6 dark:bg-gdark-300">
+        <div className="flex flex-col min-h-screen space-y-6 dark:bg-gdark-300">
             {/* Header with Setting Panel Toggle Button */}
             <header className="p-2 text-right">
                 <button className="rounded-full hover:bg-gray-100 dark:hover:bg-gdark-200 p-2"
@@ -28,7 +28,7 @@ const Home = () => {
             {/* Main */}
             <main className="flex flex-col items-center space-y-2">
                 {/* Displaying Logo based on user theme */}
-                <div className="h-[12em] flex items-end">
+                <div className="h-[5em] sm:h-[10em] lg:h-[27vh] flex items-end">
                     {/* Displays when theme is Light */}
                     {( theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
                         <img src={logo} alt="Googlo" className="w-72" />

@@ -1,7 +1,10 @@
 import { useGetKnowledgePanelQuery } from "../services/GoogleKnowledgePanel";
 
 const KnowledgePanel = () => {
-    const { data } = useGetKnowledgePanelQuery(); // Destructuring needed properties from Endpoint
+    const { data, isLoading, error } = useGetKnowledgePanelQuery(); // Destructuring needed properties from Endpoint
+    if (isLoading) return '';
+    if (error) throw new Error(error); 
+
     const { knowledge_panel: kp } = data; // Destructuring knowledge_panel as "kp" from the enpoint data object
 
     // If Knowledge Panel exists for current search term, then this is rendered

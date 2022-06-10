@@ -20,14 +20,14 @@ const SettingsPanel = () => {
     const handleThemeChange = (e) => dispatch(setTheme(e.target.value));
 
     return ( 
-        <div className={`${ !settingsToggle ? `hidden` : `` } h-screen w-full overflow-hidden fixed top-0 z-20 bg-black/50`}>
+        <div className={`${ !settingsToggle ? `hidden` : undefined } h-screen w-full overflow-hidden fixed top-0 z-20 bg-black/50`}>
             {/* Settings Toggle to Close Settings Panel by click on Opaque background 
             - Dispatches the closeSettings() action which sets settingsToggle = false */}
             <div className="absolute w-full h-full top-0 z-20" onClick={() => dispatch(closeSettings())} />
             {/* --- */}
             
             {/* Setting Panel Body */}
-            <div className="absolute right-0 top-0 overflow-y-scroll h-full w-full animate-slide-in max-w-[360px] bg-white dark:bg-gdark-300 dark:text-gray-300 z-30">
+            <div className="absolute right-0 top-0 overflow-y-auto h-full w-full animate-slide-in max-w-[360px] bg-white dark:bg-gdark-300 dark:text-gray-300 z-30">
                 <div className="flex justify-between p-5 text-2xl">
                     <h2 className="dark:text-gray-100">
                         Quick Settings
