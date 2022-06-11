@@ -1,8 +1,13 @@
 import { useGetKnowledgePanelQuery } from "../services/GoogleKnowledgePanel";
+import { useLocation } from "react-router-dom";
 
 const KnowledgePanel = () => {
-    const { data, isLoading, error } = useGetKnowledgePanelQuery(); // Destructuring needed properties from Endpoint
-    if (isLoading) return '';
+    const { search } = useLocation(); // Destructuring the Search property from the location object
+    const queryParam = new URLSearchParams(search); // Instantiating a URL Parameter search
+    const searchTerm = queryParam.get('q'); // Retrieving the value of "q" as searchTerm
+
+    const { data, isLoading, isFetching, error } = useGetKnowledgePanelQuery(searchTerm); // Destructuring needed properties from Endpoint
+    if (isLoading || isFetching) return '';
     if (error) throw new Error(error); 
 
     const { knowledge_panel: kp } = data; // Destructuring knowledge_panel as "kp" from the enpoint data object
@@ -34,8 +39,7 @@ const KnowledgePanel = () => {
             <div className="px-3 my-3">
                 {/* Knowledge Panel Description */}
                 <p className="text-sm">
-                    { kp?.description?.text } {' '} 
-                    <a className="glink" href={ kp?.description?.url }>{ kp?.description?.site }</a>
+                    { kp?.description?.text } {' '} <a className="glink" href={ kp?.description?.url }>{ kp?.description?.site }</a>
                 </p>
                 {/* --- */}
             </div>

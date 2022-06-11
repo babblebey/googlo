@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import { deviceIsDarkScheme } from "./features/theme";
 
 const App = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const theme = useSelector(state => state.theme.value); // Selecting current theme state -> (light || dark || deviceDefault)
   
   return ( 
-    <div className={(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) ? 'dark' : undefined}> {/** Adds "dark" class to App root if theme value is 'dark' or is 'deviceDefault' but Browser theme is Dark */}
-      { location.pathname !== "/" && <Header page={ location.pathname.slice(1) } /> /** Renders Header Component Everywhere except on the HOME path */ }
+    <div className={`${(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) ? 'dark ' : ''}flex flex-col min-h-screen`}> {/** Adds "dark" class to App root if theme value is 'dark' or is 'deviceDefault' but Browser theme is Dark */}
+      { pathname !== "/" && <Header page={ pathname.slice(1) } /> /** Renders Header Component Everywhere except on the HOME path */ }
         <Switch>
           <Route exact path={'/'}>
             <Home />
@@ -28,8 +28,10 @@ const App = () => {
             <News />
           </Route>
         </Switch>
-        <SettingsPanel /> { /** Settings Panel Component Rendered for all Components */ }
-      { location.pathname !== "/" && <Footer />  /** Renders Footer Component Everywhere except on the HOME path */  }
+        { /** Settings Panel Component Rendered for all Components */ }
+        <SettingsPanel /> 
+        {/* --- */}
+      { pathname !== "/" && <Footer />  /** Renders Footer Component Everywhere except on the HOME path */  }
     </div>
    );
 }

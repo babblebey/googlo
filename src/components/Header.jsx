@@ -5,14 +5,42 @@ import { MdMic, MdSearch, MdOutlineClose, MdOutlineSettings, MdOutlineSlideshow,
 import { useDispatch, useSelector } from "react-redux";
 import { openSettings } from "../features/SettingsToggle";
 import { deviceIsDarkScheme } from "../features/theme";
+import { setSearchQuery, setSearchTerm } from "../features/search";
 import logo from "../logo.svg";
 import logoDark from "../logo-dark.svg";
+import { useHistory, useLocation } from "react-router-dom";
 
 const Header = ({ page }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { pathname } = useLocation();
     const [scrolled, setScrolled] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
+
     const theme = useSelector(state => state.theme.value); // Selecting the current user theme value -> (light || dark || deviceDefault)
+    const language = useSelector(state => state.language.value);  // Selecting the current state of user language
+    const country = useSelector(state => state.country.value); // Selecting the current state of user country
+    const searchQuery = useSelector(state => state.search.value.query); // Selecting the current state value of the searchQuery
+    const searchTerm = useSelector(state => state.search.value.term); // Selecting the current state value of the searchTerm
+
+    const handleChange = (e) => {
+        dispatch(setSearchTerm(e.target.value));
+        
+        // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country, resultsCount
+        // 1- search term is splitted at spaces (" ")
+        // 2- and joined with '+' to elminate the spaces
+        // 3- the 'resultsCount' state value is concatenated to the query
+        // 4- the 'language' state value 'alpha2' property is concatenated to the query
+        // 5- if the 'country' state value 'code' is not "GNR", the value property is concatenated to the query
+        dispatch(setSearchQuery(`${e.target.value.split(' ').join('+')}&lr=lang_${language.alpha2.toLowerCase()}&hl=${language.alpha2}${(country.code !== 'GNR') ? `&cr=country${country.code}` : ''}`));
+    }
+
+    // Handling Function to do a Search on Result Page
+    const handleSearch = (e) => {
+        // Prevent page reload on form submission
+        e.preventDefault();
+        // Routes to current route (derived from useLocation()'s pathname property) with a new query
+        history.push(`/${pathname.slice(1)}?q=${searchQuery}`);
+    }
 
     // Detects Window Scroll
     useEffect(() => {
@@ -44,7 +72,7 @@ const Header = ({ page }) => {
                 <div className="ml-3 md:ml-40 flex md:justify-between">
                     <div className="flex flex-1 md:flex-0 relative items-center">
                         {/* Displaying Logo based on user theme for DESKTOP/LARGER Devices */}
-                        <Link to={'/'} className="absolute -left-32 z-10 hidden md:block">
+                        <Link to={'/'} className="absolute -left-32 z-10 hidden md:block" onClick={() => dispatch(setSearchTerm(''))}>
                             {/* Renders this if theme is 'Light' or theme is deviceDefault but Browser theme is 'Light' */}
                             { (theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
                                 <img src={logo} alt="Googlo" className="h-7" />
@@ -62,16 +90,18 @@ const Header = ({ page }) => {
                         {/* Search Input Form Field */}
                         <div className="relative w-full max-w-[692px] group">
                             <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-600 block md:hidden" />
-                            <input 
-                                type="text"
-                                value={searchTerm} 
-                                className={`${scrolled ? 'search-input_scrolled' : 'search-input_not-scrolled'} search-input`}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
+                            <form onSubmit={handleSearch}>
+                                <input 
+                                    type="text"
+                                    value={searchTerm} 
+                                    className={`${scrolled ? 'search-input_scrolled' : 'search-input_not-scrolled'} search-input`}
+                                    onChange={handleChange}
+                                />
+                            </form>
                             <div className={`${scrolled ? 'py-1 text-xl' : 'py-2 text-2xl'} absolute top-0 right-0 rounded-full mr-4 space-x-2 h-full flex my-auto`}>
                                 {/* Clear input field button - Only render when searcf field has value typed in */}
                                 {searchTerm.length >= 1 &&  (
-                                    <button className="border-r border-r-gray-300 dark:border-r-gdark-100 pr-2" onClick={() => setSearchTerm('')}>
+                                    <button className="border-r border-r-gray-300 dark:border-r-gdark-100 pr-2" onClick={() => dispatch(setSearchTerm(''))}>
                                         <MdOutlineClose className="text-gray-600" />
                                     </button>
                                 )}
@@ -80,7 +110,7 @@ const Header = ({ page }) => {
                                 <button className="md:pr-2">
                                     <MdMic className="text-gblue" />
                                 </button>
-                                <button className="hidden md:block">
+                                <button className="hidden md:block" onClick={handleSearch}>
                                     <MdSearch className="text-gblue" />
                                 </button>
                             </div>
@@ -103,25 +133,25 @@ const Header = ({ page }) => {
             <div className="border-b dark:bg-gdark-300 dark:border-b-gdark-100">
                 <div className="ml-5 lg:ml-40 pt-2 overflow-x-scroll flex text-sm text-gray-600 dark:text-gdark-50">
                     {/* Search Types */}
-                    <Link to={`/search`}>
+                    <Link to={`/search?q=${searchQuery}`}>
                         <div className={`search-type-link ${ page == 'search' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                             <MdSearch className="md:text-lg" />
                             <p>All</p>
                         </div>
                     </Link>
-                    <Link to={`/images`}>
+                    <Link to={`/images?q=${searchQuery}`}>
                         <div className={`search-type-link ${ page == 'images' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                             <MdOutlineImage className="md:text-lg" />
                             <p>Images</p>
                         </div>
                     </Link>
-                    <Link to={`/news`}>
+                    <Link to={`/news?q=${searchQuery}`}>
                         <div className={`search-type-link ${ page == 'news' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                             <BiNews className="md:text-lg" />
                             <p>News</p>
                         </div>
                     </Link>
-                    <Link to={`videos`}>
+                    <Link to={`videos?q=${searchQuery}`}>
                         <div className={`search-type-link ${ page == 'videos' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
                             <MdOutlineSlideshow className="md:text-lg" />
                             <p>Videos</p>

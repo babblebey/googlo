@@ -1,17 +1,43 @@
-import { useState } from "react";
-import logo from '../logo.svg';
-import logoDark from '../logo-dark.svg';
+import { useHistory } from "react-router-dom";
 import { MdSearch, MdSettings, MdMic, MdOutlineClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { openSettings } from "../features/SettingsToggle";
-import countries from "../app/countries.json";
 import { deviceIsDarkScheme } from "../features/theme";
+import { setSearchTerm, setSearchQuery } from "../features/search";
+import logo from '../logo.svg';
+import logoDark from '../logo-dark.svg';
+import countries from "../app/countries.json";
+
 
 const Home = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const history = useHistory();
     const dispatch = useDispatch();
+
     const country = useSelector(state => state.country.value); // Selecting the currently stated country value
     const theme = useSelector(state => state.theme.value); // Selecting the currently state user theme value -> (light || dark || deviceDefault)
+    const language = useSelector(state => state.language.value);  // Selecting the current state of user language
+    const searchQuery = useSelector(state => state.search.value.query); // Selecting the current state value of the searchQuery
+    const searchTerm = useSelector(state => state.search.value.term); // Selecting the current state value of the searchTerm
+
+    const handleChange = (e) => {
+        dispatch(setSearchTerm(e.target.value));
+        
+        // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country, resultsCount
+        // 1- search term is splitted at spaces (" ")
+        // 2- and joined with '+' to elminate the spaces
+        // 3- the 'resultsCount' state value is concatenated to the query
+        // 4- the 'language' state value 'alpha2' property is concatenated to the query
+        // 5- if the 'country' state value 'code' is not "GNR", the value property is concatenated to the query
+        dispatch(setSearchQuery(`${e.target.value.split(' ').join('+')}&lr=lang_${language.alpha2.toLowerCase()}&hl=${language.alpha2}${(country.code !== 'GNR') ? `&cr=country${country.code}` : ''}`));
+    }
+
+    // Handling Function to do a Search
+    const handleSearch = (e) => {
+        // Prevent page reload on form submission
+        e.preventDefault();
+        // Routes to the /search route with the search query concatenated to it
+        history.push(`/search?q=${searchQuery}`);
+    }
 
     return ( 
         <div className="flex flex-col min-h-screen space-y-6 dark:bg-gdark-300">
@@ -47,18 +73,20 @@ const Home = () => {
                         <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-400" />
 
                         {/* Input field */}
-                        <input 
-                            value={searchTerm}
-                            type="text" 
-                            className="rounded-full text-lg border py-2 pl-10 pr-20 w-full dark:text-gray-100 dark:bg-transparent dark:border-gdark-100 focus:border-transparent outline-0 focus-visible:shadow-form dark:focus-visible:border-transparent dark:focus-visible:bg-gdark-200 dark:group-hover:bg-gdark-200 group-hover:border-transparent group-hover:shadow-form"
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+                        <form onSubmit={handleSearch}>
+                            <input 
+                                value={searchTerm}
+                                type="text" 
+                                className="rounded-full text-lg border py-2 pl-10 pr-20 w-full dark:text-gray-100 dark:bg-transparent dark:border-gdark-100 focus:border-transparent outline-0 focus-visible:shadow-form dark:focus-visible:border-transparent dark:focus-visible:bg-gdark-200 dark:group-hover:bg-gdark-200 group-hover:border-transparent group-hover:shadow-form"
+                                onChange={handleChange}
+                            />
+                        </form>
                         {/* --- */}
 
                         <div className="absolute top-0 right-0 rounded-full mr-4 py-2 space-x-2 h-full flex my-auto text-2xl">
                             {/* Clear input field button - Only render when search field has value typed in */}
                             {searchTerm.length >= 1 &&  (
-                                <button className="border-r border-r-gray-300 dark:border-r-gdark-100 pr-2" onClick={() => setSearchTerm('')}>
+                                <button className="border-r border-r-gray-300 dark:border-r-gdark-100 pr-2" onClick={() => dispatch(setSearchTerm(''))}>
                                     <MdOutlineClose className="text-gray-600" />
                                 </button>
                             )}
@@ -76,10 +104,14 @@ const Home = () => {
                 {/* --- */}
 
                 <div className="space-x-2 flex">
-                    <button className="rounded bg-gray-100 py-2 px-3 text-sm border border-transparent hover:border-gray-300 dark:hover:border-gdark-100 hover:shadow dark:hover:shadow-md dark:bg-gdark-200 dark:text-gray-100">
+                    <button className="rounded bg-gray-100 py-2 px-3 text-sm border border-transparent hover:border-gray-300 dark:hover:border-gdark-100 hover:shadow dark:hover:shadow-md dark:bg-gdark-200 dark:text-gray-100"
+                        onClick={handleSearch}
+                    >
                         <p>Googlo Search</p>
                     </button>
-                    <button className="rounded bg-gray-100 py-2 px-3 text-sm border border-transparent hover:border-gray-300 dark:hover:border-gdark-100 hover:shadow dark:hover:shadow-md dark:bg-gdark-200 dark:text-gray-100">
+                    <button className="rounded bg-gray-100 py-2 px-3 text-sm border border-transparent hover:border-gray-300 dark:hover:border-gdark-100 hover:shadow dark:hover:shadow-md dark:bg-gdark-200 dark:text-gray-100"
+                        onClick={handleSearch}
+                    >
                         <p>I'm Feeling Lucky</p>
                     </button>
                 </div>

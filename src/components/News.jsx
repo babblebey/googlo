@@ -1,16 +1,19 @@
 import { useGetNewsQuery } from "../services/GoogleSearch";
 import Loading from "./Loading";
 import Error from "./Error";
+import { useLocation } from "react-router-dom";
 
 const News = () => {
-    const { data: news, isLoading, error } = useGetNewsQuery(); // Destructuring needed properties from Endpoint
-    if (isLoading) return <Loading />; // Returns Loading Component when data fetching is in Loading state
+    const { search } = useLocation(); // Destructuring the search property from the location object
+    
+    const { data: news, isLoading, isFetching, error } = useGetNewsQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    if (isLoading || isFetching) return <Loading />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error error={error} />; // Returns an error handling component when error is detected
 
     const { entries } = news; // Destructuring results from the news data object
 
     return ( 
-        <div className="container font-roboto py-5 dark:bg-gdark-300 dark:text-gdark-50">
+        <div className="flex-1 container font-roboto py-5 dark:bg-gdark-300 dark:text-gdark-50">
             <div className="flex flex-col-reverse md:flex-row mx-5 lg:ml-40 lg:mr-2 justify-between">
                 <div className="w-full md:max-w-[692px] space-y-6">
                     {/* Mapping through the entries from the news data object */}

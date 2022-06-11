@@ -14,16 +14,16 @@ export const googleSearchApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
     endpoints: builder => ({
         getSearch: builder.query({
-            query: () => createRequest(`/api/v1/search/q=nike&num=20&hl=en`)
+            query: (q) => createRequest(`/api/v1/search/${q}`)
         }),
         getImage: builder.query({
-            query: () => createRequest(`/api/v1/image/q=nike&num=100&hl=en`)
+            query: (q) => createRequest(`/api/v1/image/${q}`)
         }),
         getNews: builder.query({
-            query: () => createRequest(`/api/v1/news/q=nike&num=15`)
+            query: (q) => createRequest(`/api/v1/news/${q}`)
         }),
         getVideo: builder.query({
-            query: () => createRequest(`/api/v1/video/q=nike&num=15&hl=en`)
+            query: (q) => createRequest(`/api/v1/video/${q}`)
         })
     })
 })

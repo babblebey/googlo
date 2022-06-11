@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Initial country sets to the localStorage saved "country" value or the "US" if country is not found saved in localStorage
-const initialStateValue = localStorage.country ? JSON.parse(localStorage.country) :  { code: 'US' };
+// Initial country sets to the localStorage saved "country" value or the "GNR" if country is not found saved in localStorage
+const initialStateValue = localStorage.country ? JSON.parse(localStorage.country) :  { code: 'GNR' };
 
 const countrySlice = createSlice({
     name: "country",

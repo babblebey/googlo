@@ -2,16 +2,19 @@ import { useGetVideoQuery } from "../services/GoogleSearch";
 import ReactPlayer from "react-player";
 import Loading from "./Loading";
 import Error from "./Error";
+import { useLocation } from "react-router-dom";
 
 const Videos = () => {
-    const { data: videos, isLoading, error } = useGetVideoQuery(); // Destructuring needed properties from Endpoint
-    if (isLoading) return <Loading />; // Returns Loading Component when data fetching is in Loading state
+    const { search } = useLocation(); // Destructuring the search property from the location object
+
+    const { data: videos, isLoading, isFetching, error } = useGetVideoQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    if (isLoading || isFetching) return <Loading />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error error={error} />; // Returns an error handling component when error is detected
 
     const { results } = videos; // Destructuring results from the video data object
 
     return ( 
-        <div className="container py-5 font-roboto dark:bg-gdark-300">
+        <div className="flex-1 container py-5 font-roboto dark:bg-gdark-300">
             <div className="w-full flex mx-5 lg:ml-40 lg:mr-10 justify-between ">
                 {/* Mapping through the results from the search data object */}
                 <div className="md:basis-2/3 md:max-w-[692px] space-y-6">

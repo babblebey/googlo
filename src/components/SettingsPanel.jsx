@@ -3,7 +3,6 @@ import { closeSettings } from "../features/SettingsToggle";
 import { MdOutlineClose } from "react-icons/md";
 import { setLanguage } from "../features/language";
 import { setCountry } from "../features/country";
-import { setResultsCount } from "../features/resultsCount";
 import { setTheme } from "../features/theme";
 import countries from "../app/countries.json";
 import languages from "../app/languages.json";
@@ -13,7 +12,6 @@ const SettingsPanel = () => {
     const settingsToggle = useSelector(state => state.settingsToggle.value); // Selecting the current state of SettingsToggle => true || false
     const language = useSelector(state => state.language.value);  // Selecting the current state of user language
     const country = useSelector(state => state.country.value); // Selecting the current state of user country
-    const resultsCount = useSelector(state => state.resultsCount.value); // Selecting the current state of user preferred result count
     const theme = useSelector(state => state.theme.value); // Selecting the current user theme
     
     // onChange Function for user theme radio input field - Dispatches the setTheme() action which sets theme = light || dark || deviceDefault
@@ -68,22 +66,12 @@ const SettingsPanel = () => {
                         </select>
                         {/* --- */}
                     </div>
-
-                    {/* Number of Result Input field 
-                    - Dispatches the resultCount() action which sets search results count */}
-                    <div className="setting-field justify-between">
-                        <p>Number of Result</p>
-                        <input 
-                            type="number" 
-                            value={ resultsCount } 
-                            onChange={(e) => dispatch(setResultsCount(e.target.value))}
-                            className="w-2/12 text-right pr-1 bg-transparent outline-none" 
-                        />
-                    </div>
-                    {/* --- */}
                             
                     <div className="setting-field justify-between">
-                        <p>Select Country</p>
+                        <p>
+                            Select Country <br />
+                            <small className="text-xs">Limit Search Result</small>
+                        </p>
 
                         {/* Country Select field 
                         - Dispatches the setCountry() action which sets the country code equal to alpha2 mapped from imported 

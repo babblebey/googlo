@@ -1,16 +1,19 @@
 import { useGetImageQuery } from "../services/GoogleSearch";
 import Loading from "./Loading";
 import Error from "./Error";
+import { useLocation } from "react-router-dom";
 
 const Images = () => {
-    const { data: images, isLoading, error } = useGetImageQuery(); // Destructuring needed properties from Endpoint
-    if (isLoading) return <Loading fullwidth />; // Returns Loading Component when data fetching is in Loading state
+    const { search } = useLocation(); // Destructuring the search property from the location object
+    
+    const { data: images, isLoading, isFetching, error } = useGetImageQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    if (isLoading || isFetching) return <Loading fullwidth />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error fullwidth error={error} />; // Returns an error handling component when error is detected
 
     const { image_results } = images; // Destructuring results from the images data object
 
     return ( 
-        <div className="flex flex-col dark:bg-gdark-300">
+        <div className="flex flex-1 flex-col dark:bg-gdark-300">
             <main className="p-4 flex flex-wrap">
                 {/* Mapping through the results from the images data object */}
                 { image_results?.map((r, i) => (
