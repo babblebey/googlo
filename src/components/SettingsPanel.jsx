@@ -18,7 +18,7 @@ const SettingsPanel = () => {
     const handleThemeChange = (e) => dispatch(setTheme(e.target.value));
 
     return ( 
-        <div className={`${ !settingsToggle ? `hidden` : undefined } h-screen w-full overflow-hidden fixed top-0 z-20 bg-black/50`}>
+        <div className={`${ !settingsToggle ? `hidden` : undefined } h-screen w-full overflow-hidden fixed top-0 z-50 bg-black/50`}>
             {/* Settings Toggle to Close Settings Panel by click on Opaque background 
             - Dispatches the closeSettings() action which sets settingsToggle = false */}
             <div className="absolute w-full h-full top-0 z-20" onClick={() => dispatch(closeSettings())} />

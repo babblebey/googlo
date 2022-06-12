@@ -68,7 +68,7 @@ const Header = ({ page }) => {
             </div>
             {/* ---- */}
             
-            <div className={`${scrolled ? 'header-scrolled' : 'header'} dark:bg-gdark-300`}>
+            <div className={`${scrolled ? 'header-scrolled' : 'header'} dark:bg-gdark-300 z-20`}>
                 <div className="ml-3 md:ml-40 flex md:justify-between">
                     <div className="flex flex-1 md:flex-0 relative items-center">
                         {/* Displaying Logo based on user theme for DESKTOP/LARGER Devices */}
@@ -130,8 +130,8 @@ const Header = ({ page }) => {
                 </div>
             </div>
 
-            <div className="border-b dark:bg-gdark-300 dark:border-b-gdark-100">
-                <div className="ml-5 lg:ml-40 pt-2 overflow-x-scroll flex text-sm text-gray-600 dark:text-gdark-50">
+            <div className="border-b dark:bg-gdark-300 dark:border-b-gdark-100 w-full overflow-x-scroll">
+                <div className="ml-5 lg:ml-40 pt-2 flex w-full overflow-x-scroll text-sm text-gray-600 dark:text-gdark-50">
                     {/* Search Types */}
                     <Link to={`/search?q=${searchQuery}`}>
                         <div className={`search-type-link ${ page == 'search' ? 'border-gblue text-gblue' : 'border-transparent' }`}>
