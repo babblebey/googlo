@@ -2,8 +2,8 @@ import { useGetKnowledgePanelQuery } from "../services/GoogleKnowledgePanel";
 import { useLocation } from "react-router-dom";
 
 const KnowledgePanel = () => {
-    const { search } = useLocation(); // Destructuring the Search property from the location object
-    const queryParam = new URLSearchParams(search); // Instantiating a URL Parameter search
+    const { search: query } = useLocation(); // Destructuring the search property from the location object as 'query'
+    const queryParam = new URLSearchParams(query); // Instantiating a URL Parameter search
     const searchTerm = queryParam.get('q'); // Retrieving the value of "q" as searchTerm
 
     const { data, isLoading, isFetching, error } = useGetKnowledgePanelQuery(searchTerm); // Destructuring needed properties from Endpoint
@@ -34,7 +34,9 @@ const KnowledgePanel = () => {
                 {/* --- */}
             </div>
             
-            <div className="br md:my-3" /> 
+            {/* Line Break */}
+            <div className="br md:my-3" />
+            {/* --- */}
 
             <div className="px-3 my-3">
                 {/* Knowledge Panel Description */}

@@ -8,3 +8,4 @@ export { default as Footer } from './Footer';
 export { default as SettingsPanel } from './SettingsPanel';
 export { default as Loading } from './Loading';
 export { default as Error } from './Error';
+export { default as VoiceSearch } from './VoiceSearch';

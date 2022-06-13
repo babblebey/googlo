@@ -20,6 +20,7 @@ const Home = () => {
     const searchTerm = useSelector(state => state.search.value.term); // Selecting the current state value of the searchTerm
 
     const handleChange = (e) => {
+        // Setting state value for searchTerm on change form field
         dispatch(setSearchTerm(e.target.value));
         
         // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country, resultsCount
@@ -103,6 +104,7 @@ const Home = () => {
                 </div>
                 {/* --- */}
 
+                {/* Search Action Buttons */}
                 <div className="space-x-2 flex">
                     <button className="rounded bg-gray-100 py-2 px-3 text-sm border border-transparent hover:border-gray-300 dark:hover:border-gdark-100 hover:shadow dark:hover:shadow-md dark:bg-gdark-200 dark:text-gray-100"
                         onClick={handleSearch}
@@ -115,6 +117,7 @@ const Home = () => {
                         <p>I'm Feeling Lucky</p>
                     </button>
                 </div>
+                {/* --- */}
             </main>
             {/* Main */}
 
@@ -143,7 +146,7 @@ const Home = () => {
                         Googlo - a Google Clone Made with React x TailwindCSS by <a href="https://instagram.com/babblebey" target="_blank">@babblebey</a>
                     </p>
                     <p>
-                        <a href="#" target="_blank">View Source on GitHub</a>
+                        <a href="https://github.com/babblebey/googlo" target="_blank">View Source on GitHub</a>
                     </p>
                 </div>
             </footer>

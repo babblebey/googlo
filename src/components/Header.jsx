@@ -6,15 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { openSettings } from "../features/SettingsToggle";
 import { deviceIsDarkScheme } from "../features/theme";
 import { setSearchQuery, setSearchTerm } from "../features/search";
+import { useHistory, useLocation } from "react-router-dom";
 import logo from "../logo.svg";
 import logoDark from "../logo-dark.svg";
-import { useHistory, useLocation } from "react-router-dom";
+import VoiceSearch from "./VoiceSearch";
 
 const Header = ({ page }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { pathname } = useLocation();
+    const { pathname } = useLocation(); // Destructuring 'pathname' from location object
     const [scrolled, setScrolled] = useState(false);
+    const [voiceSearch, setVoiceSearch] = useState(false); // State for Voice Search Pop-over
 
     const theme = useSelector(state => state.theme.value); // Selecting the current user theme value -> (light || dark || deviceDefault)
     const language = useSelector(state => state.language.value);  // Selecting the current state of user language
@@ -23,6 +25,7 @@ const Header = ({ page }) => {
     const searchTerm = useSelector(state => state.search.value.term); // Selecting the current state value of the searchTerm
 
     const handleChange = (e) => {
+        // Setting state value for searchTerm on change form field
         dispatch(setSearchTerm(e.target.value));
         
         // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country, resultsCount
@@ -68,7 +71,7 @@ const Header = ({ page }) => {
             </div>
             {/* ---- */}
             
-            <div className={`${scrolled ? 'header-scrolled' : 'header'} dark:bg-gdark-300 z-20`}>
+            <div className={`${scrolled ? 'header-scrolled' : 'header'} z-20`}>
                 <div className="ml-3 md:ml-40 flex md:justify-between">
                     <div className="flex flex-1 md:flex-0 relative items-center">
                         {/* Displaying Logo based on user theme for DESKTOP/LARGER Devices */}
@@ -88,7 +91,7 @@ const Header = ({ page }) => {
                         {/* --- */}
 
                         {/* Search Input Form Field */}
-                        <div className="relative w-full max-w-[692px] group">
+                        <div className="relative w-full max-w-g group">
                             <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-600 block md:hidden" />
                             <form onSubmit={handleSearch}>
                                 <input 
@@ -107,11 +110,13 @@ const Header = ({ page }) => {
                                 )}
                                 {/* --- */}
                                 
-                                <button className="md:pr-2">
+                                <button className="md:pr-2"
+                                    onClick={() => setVoiceSearch(true)}    
+                                >
                                     <MdMic className="text-gblue" />
                                 </button>
                                 <button className="hidden md:block" onClick={handleSearch}>
-                                    <MdSearch className="text-gblue" />
+                                    <MdSearch className="text-gblue dark:text-[#8ab4f8]" />
                                 </button>
                             </div>
                         </div>
@@ -160,6 +165,13 @@ const Header = ({ page }) => {
                     {/* --- */}
                 </div>
             </div>
+
+            {/* Voice Search Pop-over renders when 'voiceSearch' state is 'true' */}
+            { voiceSearch && (
+                // Voice Search Component with the 'voiceSearch' state passed as its 'toggle' prop
+                <VoiceSearch toggle={setVoiceSearch} />
+            ) }
+            {/* --- */}
         </>
      );
 }

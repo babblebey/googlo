@@ -1,16 +1,20 @@
 import { useGetNewsQuery } from "../services/GoogleSearch";
+import { useLocation } from "react-router-dom";
 import Loading from "./Loading";
 import Error from "./Error";
-import { useLocation } from "react-router-dom";
+import moment from "moment";
 
 const News = () => {
-    const { search } = useLocation(); // Destructuring the search property from the location object
+    const { search: query } = useLocation(); // Destructuring the search property from the location object as 'query'
     
-    const { data: news, isLoading, isFetching, error } = useGetNewsQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    // Passing in the 'search' (i.e. 'query') property as parameter to Endpoint slicing out the first character "?" from the string value 
+    const { data: news, isLoading, isFetching, error } = useGetNewsQuery(`${query.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
     if (isLoading || isFetching) return <Loading />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error error={error} />; // Returns an error handling component when error is detected
 
     const { entries } = news; // Destructuring results from the news data object
+
+    console.log(entries);
 
     return ( 
         <div className="flex-1 container font-roboto py-5 dark:bg-gdark-300 dark:text-gdark-50">
@@ -33,16 +37,16 @@ const News = () => {
 
                                 {/* News entry Description and date */}
                                 <p className="text-sm text-gray-600 dark:text-gdark-50">
-                                    Sharp contrasting triangular shapes in a pink, blue, and navy colourway look iridescent and like a finely cut diamond. This is only...
+                                    { '' }
                                 </p>
                                 <p className="text-xs text-gray-600 dark:text-gdark-50">
-                                    5 days ago
+                                    { moment(e?.published).startOf('ss').fromNow() }
                                 </p>
                                 {/* --- */}
                             </div>
-                            <div className="w-28 h-28 rounded-md bg-gray-100 dark:bg-gdark-200 overflow-hidden">
+                            <div className="w-28 h-28 rounded-md bg-gray-100 dark:bg-gdark-200 overflow-hidden animate-pulse">
                                 {/* News entry Image */}
-                                <img src="https://profitworks.ca/images/PMoiE8tk.jpg" className="object-cover h-full" alt="" />
+                                <img src={''} className="object-cover h-full" alt="" />
                                 {/* --- */}
                             </div>
                         </div>

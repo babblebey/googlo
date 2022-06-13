@@ -1,18 +1,20 @@
 import { useGetImageQuery } from "../services/GoogleSearch";
-import Loading from "./Loading";
-import Error from "./Error";
 import { useLocation } from "react-router-dom";
 import { MdOutlineImage, MdOutlineChevronLeft, MdOutlineChevronRight, MdArrowForward } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loading from "./Loading";
+import Error from "./Error";
 
 const Images = ({ widget }) => {
-    const { search } = useLocation(); // Destructuring the search property from the location object
+    const { search: query } = useLocation(); // Destructuring the search property from the location object as 'query'
+    const queryParam = new URLSearchParams(query); // Instantiating a URL Parameter search
+    const searchTerm = queryParam.get('q'); // Retrieving the value of "q" as searchTerm
 
     const searchQuery = useSelector(state => state.search.value.query); // Selecting the current state value of the searchQuery
-    const searchTerm = useSelector(state => state.search.value.term); // Selecting the current state value of the searchTerm
     
-    const { data: images, isLoading, isFetching, error } = useGetImageQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    // Passing in the 'search' (i.e. 'query') property as parameter to Endpoint slicing out the first character "?" from the string value 
+    const { data: images, isLoading, isFetching, error } = useGetImageQuery(`${query.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
     if (!widget && isLoading || isFetching) return <Loading fullwidth />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error fullwidth error={error} />; // Returns an error handling component when error is detected
 
@@ -23,7 +25,7 @@ const Images = ({ widget }) => {
         <div className="space-y-3 mb-14">
             {/* Widget Title with link to the Main Image Result Route with searchQuery passed as URL Parameters */}
             <Link to={`/images?q=${searchQuery}`} 
-                className="my-[2px] px-3 text-xl dark:text-[#e8eaed] flex items-center"
+                className="my-[2px] px-3 text-xl dark:text-[#e8eaed] hover:text-link dark:hover:text-[#8ab4f8] flex items-center"
             >
                 <MdOutlineImage className="mr-2" /> Images for { searchTerm }
             </Link>
@@ -52,11 +54,11 @@ const Images = ({ widget }) => {
                     {/* View All Link (On the Carousel), links to the Main Image Result Route */}
                     <div className="text-center">
                         <div className="w-24 mx-6">
-                            <Link to={`/images?q=${searchQuery}`} className="space-y-2">
-                                <button className="border dark:border-gdark-100 rounded-full glink text-2xl p-4">
+                            <Link to={`/images?q=${searchQuery}`} className="space-y-2 group">
+                                <button className="border dark:border-gdark-100 rounded-full glink text-2xl p-4 group-hover:bg-gray-100 dark:group-hover:bg-gdark-200">
                                     <MdArrowForward />
                                 </button>
-                                <p className="text-sm">
+                                <p className="text-sm group-hover:underline">
                                     View all
                                 </p>
                             </Link>
@@ -80,7 +82,7 @@ const Images = ({ widget }) => {
 
             {/* View All Link to the Main Image Result Route with searchQuery passed as URL Parameters */}
             <div className="flex flex-col items-center px-4">
-                <Link to={`/images?q=${searchQuery}`} className="rounded-full border dark:border-gdark-100 w-6/12 relative py-1 top-4 bg-white text-center dark:bg-gdark-300">
+                <Link to={`/images?q=${searchQuery}`} className="rounded-full border dark:border-gdark-100 w-6/12 relative py-1 top-4 bg-white text-center dark:bg-gdark-300 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gdark-200">
                     <button>
                         <p className="text-sm">
                             View all

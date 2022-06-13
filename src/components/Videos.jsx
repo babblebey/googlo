@@ -5,9 +5,10 @@ import Error from "./Error";
 import { useLocation } from "react-router-dom";
 
 const Videos = () => {
-    const { search } = useLocation(); // Destructuring the search property from the location object
-
-    const { data: videos, isLoading, isFetching, error } = useGetVideoQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    const { search: query } = useLocation(); // Destructuring the search property from the location object as 'query'
+    
+    // Passing in the 'search' (i.e. 'query') property as parameter to Endpoint slicing out the first character "?" from the string value 
+    const { data: videos, isLoading, isFetching, error } = useGetVideoQuery(`${query.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
     if (isLoading || isFetching) return <Loading />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error error={error} />; // Returns an error handling component when error is detected
 

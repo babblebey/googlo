@@ -1,14 +1,15 @@
-import KnowledgePanel from "./KnowledgePanel";
 import { useGetSearchQuery } from "../services/GoogleSearch";
+import { useLocation } from "react-router-dom";
+import KnowledgePanel from "./KnowledgePanel";
 import Loading from "./Loading";
 import Error from "./Error";
-import { useLocation } from "react-router-dom";
 import Images from "./Images";
 
 const Search = () => {
-    const { search } = useLocation(); // Destructuring the search property from the location object
+    const { search: query } = useLocation(); // Destructuring the search property from the location object as 'query'
 
-    const { data, isLoading, isFetching, error } = useGetSearchQuery(`q=${search.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
+    // Passing in the 'search' (i.e. 'query') property as parameter to Endpoint slicing out the first character "?" from the string value 
+    const { data, isLoading, isFetching, error } = useGetSearchQuery(`${query.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
     if (isLoading || isFetching) return <Loading />; // Returns Loading Component when data fetching is in Loading state
     if (error) return <Error error={error} />; // Returns an error handling component when error is detected
 
