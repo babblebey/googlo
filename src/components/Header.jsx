@@ -28,12 +28,12 @@ const Header = ({ page }) => {
         // Setting state value for searchTerm on change form field
         dispatch(setSearchTerm(e.target.value));
         
-        // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country, resultsCount
-        // 1- search term is splitted at spaces (" ")
-        // 2- and joined with '+' to elminate the spaces
-        // 3- the 'resultsCount' state value is concatenated to the query
-        // 4- the 'language' state value 'alpha2' property is concatenated to the query
-        // 5- if the 'country' state value 'code' is not "GNR", the value property is concatenated to the query
+        // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country
+        // 1. search term is splitted at spaces (" ")
+        // 2. and joined with '+' to elminate the spaces
+        // 3. the 'resultsCount' state value is concatenated to the query
+        // 4. the 'language' state value 'alpha2' property is concatenated to the query
+        // 5. if the 'country' state value 'code' is not "GNR", the value property is concatenated to the query
         dispatch(setSearchQuery(`${e.target.value.split(' ').join('+')}&lr=lang_${language.alpha2.toLowerCase()}&hl=${language.alpha2}${(country.code !== 'GNR') ? `&cr=country${country.code}` : ''}`));
     }
 
@@ -91,7 +91,7 @@ const Header = ({ page }) => {
                         {/* --- */}
 
                         {/* Search Input Form Field */}
-                        <div className="relative w-full max-w-g group">
+                        <div className="relative w-full max-w-[692px] group">
                             <MdSearch className="absolute h-full ml-4 left-0 text-xl text-gray-600 block md:hidden" />
                             <form onSubmit={handleSearch}>
                                 <input 
@@ -103,7 +103,7 @@ const Header = ({ page }) => {
                             </form>
                             <div className={`${scrolled ? 'py-1 text-xl' : 'py-2 text-2xl'} absolute top-0 right-0 rounded-full mr-4 space-x-2 h-full flex my-auto`}>
                                 {/* Clear input field button - Only render when searcf field has value typed in */}
-                                {searchTerm.length >= 1 &&  (
+                                {searchTerm?.length >= 1 &&  (
                                     <button className="border-r border-r-gray-300 dark:border-r-gdark-100 pr-2" onClick={() => dispatch(setSearchTerm(''))}>
                                         <MdOutlineClose className="text-gray-600" />
                                     </button>
@@ -169,7 +169,7 @@ const Header = ({ page }) => {
             {/* Voice Search Pop-over renders when 'voiceSearch' state is 'true' */}
             { voiceSearch && (
                 // Voice Search Component with the 'voiceSearch' state passed as its 'toggle' prop
-                <VoiceSearch toggle={setVoiceSearch} />
+                <VoiceSearch toggle={setVoiceSearch} search={handleSearch} />
             ) }
             {/* --- */}
         </>

@@ -9,8 +9,10 @@ const App = () => {
   const theme = useSelector(state => state.theme.value); // Selecting current theme state -> (light || dark || deviceDefault)
   
   return ( 
-    <div className={`${(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) ? 'dark ' : ''}flex flex-col min-h-screen`}> {/** Adds "dark" class to App root if theme value is 'dark' or is 'deviceDefault' but Browser theme is Dark */}
+    ///** Adds "dark" class to App root if theme value is 'dark' or is 'deviceDefault' but Browser theme is Dark */
+    <div className={`${(theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) ? 'dark ' : ''}flex flex-col min-h-screen`}>
       { pathname !== "/" && <Header page={ pathname.slice(1) } /> /** Renders Header Component Everywhere except on the HOME path */ }
+        
         <Switch>
           <Route exact path={'/'}>
             <Home />
@@ -28,9 +30,11 @@ const App = () => {
             <News />
           </Route>
         </Switch>
+
         { /** Settings Panel Component Rendered for all Components */ }
         <SettingsPanel /> 
         {/* --- */}
+
       { pathname !== "/" && <Footer />  /** Renders Footer Component Everywhere except on the HOME path */  }
     </div>
    );

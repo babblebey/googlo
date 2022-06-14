@@ -15,7 +15,19 @@ const Images = ({ widget }) => {
     
     // Passing in the 'search' (i.e. 'query') property as parameter to Endpoint slicing out the first character "?" from the string value 
     const { data: images, isLoading, isFetching, error } = useGetImageQuery(`${query.slice(1)}`); // Destructuring needed properties from Endpoint with query passed through URL Parameters
-    if (!widget && isLoading || isFetching) return <Loading fullwidth />; // Returns Loading Component when data fetching is in Loading state
+
+    // Checks whether component is rendered in Widget Mode -> to determine appropriate Loading Component
+    switch (widget) {
+        case true:
+            // for 'widget' is 'true', this Returns a (Mini version) Loading Component when data fetching is in Loading state
+            if (isLoading || isFetching) return <Loading mini />; 
+            break;
+        default:
+            // Returns Loading Component when data fetching is in Loading state
+            if (isLoading || isFetching) return <Loading fullwidth />; 
+            break;
+    }
+
     if (error) return <Error fullwidth error={error} />; // Returns an error handling component when error is detected
 
     const { image_results } = images; // Destructuring results from the images data object
@@ -36,7 +48,7 @@ const Images = ({ widget }) => {
                 {/* Scroll to Left Button */}
                 <div className="absolute -left-4 h-full flex items-center">
                     <button className="border dark:border-0 bg-white/90 p-1 dark:bg-gdark-200/70 shadow top-1/3 dark:hover:bg-gdark-200/100 rounded-full" 
-                        onClick={() => document.querySelector('#tab').scrollLeft -= 300}
+                        onClick={() => document.querySelector('#tab').scrollLeft -= 300} // Scrolls Element to the left by -300
                     >
                         <MdOutlineChevronLeft className="text-2xl" />
                     </button>
@@ -51,7 +63,7 @@ const Images = ({ widget }) => {
                     )) }
                     {/* --- */}
 
-                    {/* View All Link (On the Carousel), links to the Main Image Result Route */}
+                    {/* View All Link (On the Carousel), links to the Main Image Result Route with 'searchQuery' passed as URL Parameters */}
                     <div className="text-center">
                         <div className="w-24 mx-6">
                             <Link to={`/images?q=${searchQuery}`} className="space-y-2 group">
@@ -71,7 +83,7 @@ const Images = ({ widget }) => {
                 {/* Scroll to Right Button */}
                 <div className="absolute top-0 -right-4 h-full flex items-center">
                     <button className="border dark:border-0 bg-white/90 p-1 dark:bg-gdark-200/70 shadow top-1/3 dark:hover:bg-gdark-200/100 rounded-full" 
-                        onClick={() => document.querySelector('#tab').scrollLeft += 300}
+                        onClick={() => document.querySelector('#tab').scrollLeft += 300} // Scrolls Element to the right by +300
                     >
                         <MdOutlineChevronRight className="text-2xl" />
                     </button>
@@ -80,7 +92,7 @@ const Images = ({ widget }) => {
             </div>
             {/* --- */}
 
-            {/* View All Link to the Main Image Result Route with searchQuery passed as URL Parameters */}
+            {/* View All Link (Below the Carousel), links to the Main Image Result Route with 'searchQuery' passed as URL Parameters */}
             <div className="flex flex-col items-center px-4">
                 <Link to={`/images?q=${searchQuery}`} className="rounded-full border dark:border-gdark-100 w-6/12 relative py-1 top-4 bg-white text-center dark:bg-gdark-300 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gdark-200">
                     <button>
@@ -94,7 +106,6 @@ const Images = ({ widget }) => {
             {/* --- */}
         </div>
     );
-    ////////------------------------////////
 
     // Main Component Mode -> Displays only when 'widget' prop is 'false'
     return ( 
@@ -126,7 +137,6 @@ const Images = ({ widget }) => {
             </aside>
         </div>
     );
-    ////////------------------//////////
 }
  
 export default Images;
