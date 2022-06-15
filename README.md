@@ -6,7 +6,9 @@
   </a>
 </p>
 
-> A ReactJS Realistic Google Clone App with Voice Search Feature
+![Googlo Screenshot](https://i.ibb.co/8YQzBPS/screenshot-googlo-bey-netlify-app-2022-06-15-20-12-23.png)
+
+> A Realistic Google Clone App with Voice Search Feature built with ReactJS, Redux and TailwindCSS
 
 ### ✨ [Live Preview](https://googlo-bey.netlify.app/)
 
