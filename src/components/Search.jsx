@@ -16,8 +16,8 @@ const Search = () => {
     const { results } = data; // Destructuring results from the general search data object
 
     return ( 
-        <div className="flex-1 container py-5 dark:bg-gdark-300 dark:text-gdark-50">
-            <div className="flex flex-col-reverse md:flex-row mx-5 lg:ml-40 justify-between">
+        <div className="flex-1 container px-5 md:px-0 py-5 dark:bg-gdark-300 dark:text-gdark-50">
+            <div className="flex flex-col-reverse md:flex-row lg:ml-40 justify-between">
                 {/* Mapping through the results from the search data object */}
                 <div className="md:basis-2/3 md:max-w-[692px] space-y-6">
 

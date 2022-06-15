@@ -15,10 +15,10 @@ const Videos = () => {
     const { results } = videos; // Destructuring results from the video data object
 
     return ( 
-        <div className="flex-1 container py-5 font-roboto dark:bg-gdark-300">
-            <div className="w-full flex mx-5 lg:ml-40 lg:mr-10 justify-between ">
+        <div className="flex-1 container px-5 md:px-0 py-5 font-roboto dark:bg-gdark-300">
+            <div className="w-full flex lg:ml-40 lg:mr-10 justify-between ">
                 {/* Mapping through the results from the search data object */}
-                <div className="md:basis-2/3 md:max-w-[692px] space-y-6">
+                <div className="w-full md:basis-2/3 md:max-w-[692px] space-y-6">
                     { results?.map((r, i) => (
                         <div className="space-y-1" key={i}>
                             {/* Result Title, cited domain linked withing the source link */}

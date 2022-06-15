@@ -17,8 +17,8 @@ const News = () => {
     console.log(entries);
 
     return ( 
-        <div className="flex-1 container font-roboto py-5 dark:bg-gdark-300 dark:text-gdark-50">
-            <div className="flex flex-col-reverse md:flex-row mx-5 lg:ml-40 lg:mr-2 justify-between">
+        <div className="flex-1 container font-roboto px-5 md:px-0 py-5 dark:bg-gdark-300 dark:text-gdark-50">
+            <div className="flex flex-col-reverse md:flex-row lg:ml-40 lg:mr-2 justify-between">
                 <div className="w-full md:max-w-[692px] space-y-6">
                     {/* Mapping through the entries from the news data object */}
                     { entries?.map((e, i) => (
