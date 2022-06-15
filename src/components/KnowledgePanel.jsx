@@ -17,7 +17,7 @@ const KnowledgePanel = () => {
         <div className="md:basis-1/3 w-full h-fit border border-gray-300 dark:border-gdark-100 rounded-lg pb-3 md:py-3 mb-6 overflow-hidden">
             <div className="flex items-center pl-3 md:px-3">
                 {/* Knowledge Panel Name and Label */}
-                <div className="basis-4/5 md:basis-3/5 flex flex-col justify-center">
+                <div className="basis-3/5 flex flex-col justify-center">
                     <p className="text-xl md:text-2xl lg:text-3xl font">
                         { kp?.name }
                     </p>
@@ -28,7 +28,7 @@ const KnowledgePanel = () => {
                 {/* --- */}
 
                 {/* Knowledge Panel Image */}
-                <div className="basis-1/5 md:basis-2/5">
+                <div className="basis-2/5">
                     <img src={ kp?.image?.url } alt={ kp?.name } className="md:rounded-lg" />
                 </div>
                 {/* --- */}
