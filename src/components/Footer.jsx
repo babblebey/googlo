@@ -23,7 +23,7 @@ const Footer = () => {
                     Googlo - a Google Clone Made with React x TailwindCSS by <a href="https://instagram.com/babblebey" target="_blank">@babblebey</a>
                 </p>
                 <p>
-                    <a href="#" target="_blank">View Source on GitHub</a>
+                    <a href="https://github.com/babblebey/googlo" target="_blank">View Source on GitHub</a>
                 </p>
             </div>
         </footer>
