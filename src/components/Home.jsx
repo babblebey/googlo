@@ -59,14 +59,14 @@ const Home = () => {
                 {/* Main */}
                 <main className="flex flex-col items-center space-y-2">
                     {/* Displaying Logo based on user theme */}
-                    <div className="h-[5em] sm:h-[10em] lg:h-[27vh] flex items-end">
+                    <div className="h-[6em] sm:h-[10em] lg:h-[27vh] flex items-end">
                         {/* Displays when theme is Light */}
                         {( theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
-                            <img src={logo} alt="Googlo" className="w-72" />
+                            <img src={logo} alt="Googlo" className="w-36 sm:w-52 md:w-72" />
                         ) }
                         {/* Displays when theme is Dark */}
                         { (theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && (
-                            <img src={logoDark} alt="Googlo" className="w-72" />
+                            <img src={logoDark} alt="Googlo" className="w-36 sm:w-52 md:w-72" />
                         ) }
                     </div>
                     {/* --- */}
