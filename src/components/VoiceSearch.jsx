@@ -133,6 +133,10 @@ const VoiceSearchBar = ({ toggle, home, search }) => {
                         <button className="relative text-gray-600 dark:bg-gdark-50 dark:text-gdark-100 text-2xl md:text-5xl p-2 md:p-5 rounded-full shadow-mic"
                             onMouseDown={start} // On Button Press Down -> Set Listening state to true
                             onMouseUp={stop} // On Button release -> Set Listening state to false
+
+                            // Button Interaction Action for Touch Devices
+                            onTouchStart={start} // On Touch Down -> Set Listening state to true
+                            onTouchEnd={stop} // On Touch release -> Set Listening state to false
                         >
                             <MdMic />
 
