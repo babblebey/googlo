@@ -57,17 +57,19 @@ const Header = ({ page }) => {
         <>
             {/* Displaying Logo based on user theme for MOBILE Device */}
             <div className="block md:hidden dark:bg-gdark-300 pt-3">
-                {/* Renders this if theme is Light or theme is deviceDefault but Browser theme is Light */}
-                { (theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
-                    <img src={logo} alt="Googlo" className="h-7 mx-auto" />
-                ) }
-                {/* --- */}
+                <Link to={'/'} onClick={() => dispatch(setSearchTerm(''))}>
+                    {/* Renders this if theme is Light or theme is deviceDefault but Browser theme is Light */}
+                    { (theme === 'light' || (theme === 'deviceDefault' && !deviceIsDarkScheme)) && (
+                        <img src={logo} alt="Googlo" className="h-7 mx-auto" />
+                    ) }
+                    {/* --- */}
 
-                {/* Renders this if theme is Dark theme is deviceDefault but Browser theme is Dark */}
-                { (theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && (
-                    <img src={logoDark} alt="Googlo" className="h-7 mx-auto" />
-                ) }
-                {/* --- */}
+                    {/* Renders this if theme is Dark theme is deviceDefault but Browser theme is Dark */}
+                    { (theme === 'dark' || (theme === 'deviceDefault' && deviceIsDarkScheme)) && (
+                        <img src={logoDark} alt="Googlo" className="h-7 mx-auto" />
+                    ) }
+                    {/* --- */}
+                </Link>
             </div>
             {/* ---- */}
             
