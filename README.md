@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> A ReactJS Google Clone App with Voice Search Feature
+> A ReactJS Realistic Google Clone App with Voice Search Feature
 
 ### ✨ [Live Preview](https://googlo-bey.netlify.app/)
 
