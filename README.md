@@ -1,4 +1,7 @@
 # Googlo
+
+<img src="https://svgshare.com/i/o8P.svg">
+
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/babblebey" target="_blank">
@@ -54,4 +57,4 @@ Your project should start running on `http://localhost:3000`
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if you like this project!

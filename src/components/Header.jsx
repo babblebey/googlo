@@ -31,10 +31,11 @@ const Header = ({ page }) => {
         // Construction of the searchQuery -> combination of search term (current input value) and state values from the settings panel i.e. Language, country
         // 1. search term is splitted at spaces (" ")
         // 2. and joined with '+' to elminate the spaces
-        // 3. the 'resultsCount' state value is concatenated to the query
-        // 4. the 'language' state value 'alpha2' property is concatenated to the query
-        // 5. if the 'country' state value 'code' is not "GNR", the value property is concatenated to the query
+        // 3. the 'language' state value 'alpha2' property is concatenated to the query
+        // 4. if the 'country' state value 'code' is not "GNR", the value property is concatenated to the query
         dispatch(setSearchQuery(`${e.target.value.split(' ').join('+')}&lr=lang_${language.alpha2.toLowerCase()}&hl=${language.alpha2}${(country.code !== 'GNR') ? `&cr=country${country.code}` : ''}`));
+
+        console.log(searchQuery)
     }
 
     // Handling Function to do a Search on Result Page

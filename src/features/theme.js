@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Check whether user has a saved theme preference in localStorage to set its value to initialValueState 
 // ...otherwise 'deviceDefault' is set
-const initialStateValue = localStorage.theme ? localStorage.theme :  'deviceDefault';
+const initialStateValue = localStorage.theme ? localStorage.theme : 'deviceDefault';
 
 const themeSlice = createSlice({
     name: "theme",
